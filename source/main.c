@@ -43,11 +43,11 @@ static void VideoStart() {
 	
 }
 
-static void PrintHletter() {
+static void Printhii() {
 
 	printf("\x1b[5;20H");
 
-	for (size_t X = 20; X < 37; X++)	{
+	for (size_t X = 20; X < 49; X++)	{
 
 		if (X < 23) {
 			for (size_t Y = 5; Y < 20; Y++) {
@@ -82,7 +82,16 @@ static void PrintHletter() {
 				sleep(10);
 			}
 
-		}		
+		} else if ( (X <= 42 && X > 39) || (X <= 48 && X > 45)) {
+			for (size_t Y = 5; Y < 20; Y++) {
+
+				if (Y != 8) {
+					printf("\x1b[%d;%dH", Y, X);
+					printf("h");
+					sleep(10);
+				}
+			}
+		}
 		
 	}
 	
@@ -90,10 +99,26 @@ static void PrintHletter() {
 
 int main(int argc, char **argv) {
 
+	bool Resume = false;
+
 	VideoStart();
 
-	
-	PrintHletter();	
+	printf("hii!\nWritten By Abdelali221\nGithub : https://github.com/abdelali221/\n Press A To Continue...");
+
+	while(!Resume) {
+
+		WPAD_ScanPads();
+		u32 pressed = WPAD_ButtonsDown(0);
+		if ( pressed & WPAD_BUTTON_A ) {
+			Resume = true;
+		}
+		VIDEO_WaitVSync();
+	}
+
+	printf("\x1b[2J");
+	Printhii();	
+	printf("\x1b[0;0H");
+	printf("Press HOME To Exit...");
 
 	while(1) {
 
@@ -104,6 +129,5 @@ int main(int argc, char **argv) {
 		}
 		VIDEO_WaitVSync();
 	}
-
 	return 0;
 }
