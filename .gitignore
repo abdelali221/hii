@@ -1,0 +1,8 @@
+hii.dol
+hii.elf
+build/template.o
+build/template.d
+build/hii.elf.map
+build/application.elf.map
+build/main.o
+build/main.d
